@@ -8,7 +8,8 @@ describe("TC-01 - Cadastro de usuário", () => {
             .send({
                 nome: "Vitor",
                 email: "vitor@email.com",
-                senha: "123456"
+                senha: "123456",
+                cpf: "12345678901"
             });
 
         expect(resposta.statusCode).toBe(201);

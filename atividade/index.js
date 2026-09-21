@@ -5,8 +5,16 @@ const app = express();
 app.use(express.json());
 
 app.post("/api/users", (req, res) => {
-    const { nome, email, senha } = req.body;
+    const { nome, email, senha, cpf } = req.body;
 
+    // Validação do CPF
+    if (!cpf || !/^\d{11}$/.test(cpf)) {
+        return res.status(400).json({
+            mensagem: "CPF inválido. Digite 11 números."
+        });
+    }
+
+    // Validação da senha
     if (senha.length < 6) {
         return res.status(400).json({
             mensagem: "A senha deve ter pelo menos 6 caracteres."
@@ -18,7 +26,8 @@ app.post("/api/users", (req, res) => {
         usuario: {
             nome,
             email,
-            senha
+            senha,
+            cpf
         }
     });
 });
